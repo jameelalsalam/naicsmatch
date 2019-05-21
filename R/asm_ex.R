@@ -15,6 +15,7 @@ ex_asm <- ex_asm %>%
     "311822", "311823", # flour and pasta mftring join
     "311830", #tortillas
     "334113", # computer terminals
+    "333315", # photocopiers also join with some of other computers
     "334119"  # computers split into computers and cameras
   )) %>%
   mutate(vos = as.numeric(RCPTOT)) %>%

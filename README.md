@@ -53,17 +53,18 @@ library(tidyverse)
 library(naicsmatch)
 
 sum(ex_asm$vos)
-#> [1] 17902275
+#> [1] 19877492
 
 ex_asm
-#> # A tibble: 5 x 3
-#>   NAICS.id `NAICS.display-label`                                 vos
-#>   <chr>    <chr>                                               <dbl>
-#> 1 311830   Tortilla manufacturing                            3157424
-#> 2 333512   Machine tool (metal cutting types) manufacturing  3473464
-#> 3 333513   Machine tool (metal forming types) manufacturing  1217675
-#> 4 334113   Computer terminal manufacturing                    467003
-#> 5 334119   Other computer peripheral equipment manufacturing 9586709
+#> # A tibble: 6 x 3
+#>   NAICS.id `NAICS.display-label`                                     vos
+#>   <chr>    <chr>                                                   <dbl>
+#> 1 311830   Tortilla manufacturing                                3157424
+#> 2 333315   Photographic and photocopying equipment manufacturing 1975217
+#> 3 333512   Machine tool (metal cutting types) manufacturing      3473464
+#> 4 333513   Machine tool (metal forming types) manufacturing      1217675
+#> 5 334113   Computer terminal manufacturing                        467003
+#> 6 334119   Other computer peripheral equipment manufacturing     9586709
 ## basic example code
 ```
 
@@ -93,18 +94,19 @@ asm_2012 <- ex_asm %>% left_join(naics_2007_2012,
                      by = c("NAICS.id" = "naics_2007"))
 
 sum(asm_2012$vos)
-#> [1] 27488984
+#> [1] 29464201
 
 asm_2012
-#> # A tibble: 6 x 4
+#> # A tibble: 7 x 4
 #>   NAICS.id `NAICS.display-label`                             vos naics_2012
 #>   <chr>    <chr>                                           <dbl> <chr>     
 #> 1 311830   Tortilla manufacturing                         3.16e6 311830    
-#> 2 333512   Machine tool (metal cutting types) manufactur~ 3.47e6 333517    
-#> 3 333513   Machine tool (metal forming types) manufactur~ 1.22e6 333517    
-#> 4 334113   Computer terminal manufacturing                4.67e5 334118    
-#> 5 334119   Other computer peripheral equipment manufactu~ 9.59e6 333316    
-#> 6 334119   Other computer peripheral equipment manufactu~ 9.59e6 334118
+#> 2 333315   Photographic and photocopying equipment manuf~ 1.98e6 333316    
+#> 3 333512   Machine tool (metal cutting types) manufactur~ 3.47e6 333517    
+#> 4 333513   Machine tool (metal forming types) manufactur~ 1.22e6 333517    
+#> 5 334113   Computer terminal manufacturing                4.67e5 334118    
+#> 6 334119   Other computer peripheral equipment manufactu~ 9.59e6 333316    
+#> 7 334119   Other computer peripheral equipment manufactu~ 9.59e6 334118
 ```
 
 # Weighting
@@ -133,16 +135,38 @@ asm_2012_v2 <- asm_2012 %>%
   mutate(vos = vos * wgt)
 
 sum(asm_2012_v2$vos)
-#> [1] 17902275
+#> [1] 19877492
 
 asm_2012_v2
-#> # A tibble: 6 x 5
+#> # A tibble: 7 x 5
 #>   NAICS.id `NAICS.display-label`                       vos naics_2012   wgt
 #>   <chr>    <chr>                                     <dbl> <chr>      <dbl>
 #> 1 311830   Tortilla manufacturing                   3.16e6 311830       1  
-#> 2 333512   Machine tool (metal cutting types) man~  3.47e6 333517       1  
-#> 3 333513   Machine tool (metal forming types) man~  1.22e6 333517       1  
-#> 4 334113   Computer terminal manufacturing          4.67e5 334118       1  
-#> 5 334119   Other computer peripheral equipment ma~  4.79e6 333316       0.5
-#> 6 334119   Other computer peripheral equipment ma~  4.79e6 334118       0.5
+#> 2 333315   Photographic and photocopying equipmen~  1.98e6 333316       1  
+#> 3 333512   Machine tool (metal cutting types) man~  3.47e6 333517       1  
+#> 4 333513   Machine tool (metal forming types) man~  1.22e6 333517       1  
+#> 5 334113   Computer terminal manufacturing          4.67e5 334118       1  
+#> 6 334119   Other computer peripheral equipment ma~  4.79e6 333316       0.5
+#> 7 334119   Other computer peripheral equipment ma~  4.79e6 334118       0.5
+```
+
+# Aggregation
+
+``` r
+
+asm_2012_v3 <- asm_2012_v2 %>%
+  group_by(naics_2012) %>%
+  summarize(vos = sum(vos, na.rm = TRUE))
+
+sum(asm_2012_v3$vos)
+#> [1] 19877492
+
+asm_2012_v3
+#> # A tibble: 4 x 2
+#>   naics_2012      vos
+#>   <chr>         <dbl>
+#> 1 311830     3157424 
+#> 2 333316     6768572.
+#> 3 333517     4691139 
+#> 4 334118     5260358.
 ```

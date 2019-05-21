@@ -92,6 +92,17 @@ sum(asm_2012_v2$vos)
 asm_2012_v2
 ```
 
+# Aggregation
 
+```{r}
+
+asm_2012_v3 <- asm_2012_v2 %>%
+  group_by(naics_2012) %>%
+  summarize(vos = sum(vos, na.rm = TRUE))
+
+sum(asm_2012_v3$vos)
+
+asm_2012_v3
+```
 
 
