@@ -1,3 +1,4 @@
 ^data-raw$
 ^naicsmatch\.Rproj$
 ^\.Rproj\.user$
+^README\.Rmd$

@@ -1,0 +1,71 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# naicsmatch
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of naicsmatch is to ...
+
+functions and crosswalks from and between NAICS sector codes
+
+The North American Industry Classification system is the standard used by Federal statistical agencies in classifying businesses for the purposes of data collection, analysis, and publishing statistical data. [see here](https://www.census.gov/eos/www/naics/index.html)
+
+The NAICS code classification system is regularly updated, and so translating between different iterations can be necessary to do comparisons between different data sources. This package provides some functions to automate some of these translations using concordances downloaded from the U.S. Census and other agencies and data sources.
+
+References:
+
+* [NAICS Concordances](https://www.census.gov/eos/www/naics/concordances/concordances.html)
+* 
+
+
+## Installation
+
+You can install the released version of naicsmatch from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("naicsmatch")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("jameelalsalam/naicsmatch")
+```
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(naicsmatch)
+## basic example code
+```
+
+What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+
+```{r cars}
+summary(cars)
+```
+
+You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
+
+You can also embed plots, for example:
+
+```{r pressure, echo = FALSE}
+plot(pressure)
+```
+
+In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
