@@ -17,9 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of naicsmatch is to ...
-
-functions and crosswalks from and between NAICS sector codes
+The goal of naicsmatch is to provide functions and crosswalks from and between NAICS sector codes
 
 The North American Industry Classification system is the standard used by Federal statistical agencies in classifying businesses for the purposes of data collection, analysis, and publishing statistical data. [see here](https://www.census.gov/eos/www/naics/index.html)
 
@@ -28,18 +26,11 @@ The NAICS code classification system is regularly updated, and so translating be
 References:
 
 * [NAICS Concordances](https://www.census.gov/eos/www/naics/concordances/concordances.html)
-* 
 
 
 ## Installation
 
-You can install the released version of naicsmatch from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("naicsmatch")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+You can install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -50,22 +41,57 @@ devtools::install_github("jameelalsalam/naicsmatch")
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
+library(tidyverse)
 library(naicsmatch)
+
+sum(ex_asm$vos)
+
+ex_asm
 ## basic example code
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 
-```{r cars}
-summary(cars)
+```{r}
+
+library(tidyverse)
+
+naics_2007_2012
+
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
 
-You can also embed plots, for example:
+```{r}
+asm_2012 <- ex_asm %>% left_join(naics_2007_2012, 
+                     by = c("NAICS.id" = "naics_2007"))
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+sum(asm_2012$vos)
+
+asm_2012
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
+
+# Weighting
+
+```{r}
+naics_2007_2012_wgt <- naics_2007_2012 %>%
+  group_by(naics_2007) %>%
+  summarize(wgt = 1 / n())
+
+filter(naics_2007_2012_wgt, wgt != 1)
+```
+
+
+```{r}
+asm_2012_v2 <- asm_2012 %>%
+  left_join(naics_2007_2012_wgt, 
+            by = c("NAICS.id" = "naics_2007")) %>%
+  mutate(vos = vos * wgt)
+
+sum(asm_2012_v2$vos)
+
+asm_2012_v2
+```
+
+
+
+
