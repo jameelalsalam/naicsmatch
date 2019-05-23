@@ -1,12 +1,11 @@
-#' @name details
-NULL
-
 #' Lookup Titles and Descriptions of NAICS Codes
 #'
 #' Convenience function. Focus on most recent NAICS code classifications. Lookup for prior may be added in teh
 #' @param naics a character vector of NAICS codes to look up
-#' @rdname details
+#' @aliases naics_descr
 #' @export
+#' @examples
+#' naics_title(c("332710", "332722", "332723")
 naics_title <- function(naics) {
 
   tibble::tibble(naics = naics) %>%
@@ -15,8 +14,10 @@ naics_title <- function(naics) {
 
 }
 
-#' @rdname details
+#' @rdname naics_title
 #' @export
+#' @examples
+#' naics_title(c("332710", "332722", "332723")
 naics_descr <- function(naics) {
 
   tibble::tibble(naics = naics) %>%
