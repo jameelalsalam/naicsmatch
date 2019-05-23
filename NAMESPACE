@@ -2,5 +2,6 @@
 
 export(assert_naics)
 export(is_naics)
+export(naics_descr)
 export(naics_title)
 importFrom(magrittr,"%>%")
