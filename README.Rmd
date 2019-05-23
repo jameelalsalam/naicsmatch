@@ -38,7 +38,7 @@ devtools::install_github("jameelalsalam/naicsmatch")
 ```
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This package provides concordances between different vintages of NAICS codes, and functions to facilitate converting data from one NAICS categorization to another.
 
 ```{r example}
 library(tidyverse)
@@ -50,6 +50,9 @@ ex_asm
 ## basic example code
 ```
 
+A sample of data from the 2009 Annual Survey of Manufacturers is included as `ex_asm`. This data was collected and published using the 2007 NAICS classification codes.
+
+The included data set `naics_2007_2012` is a concordance between the 2007 and 2012 classifications:
 
 ```{r}
 
