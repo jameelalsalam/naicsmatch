@@ -3,14 +3,6 @@
 library(tidyverse)
 library(readxl)
 
-naics_2007 <- read_excel(
-  "data-raw/census/2007_to_2012_NAICS.xls",
-  skip = 3,
-  col_names = c("naics_2007", "naics_2007_desc",
-                "naics_2012", "naics_2012_desc"),
-  col_types = c(rep("text", 4), rep("skip", 5))) %>%
-  select(naics_2007, naics_2007_desc)
-
 naics_2007_2012 <- read_excel(
   "data-raw/census/2007_to_2012_NAICS.xls",
   skip = 3,
