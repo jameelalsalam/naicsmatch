@@ -21,3 +21,5 @@ Imports:
     tibble,
     dplyr,
     magrittr
+URL: https://github.com/jameelalsalam/naicsmatch
+BugReports: https://github.com/jameelalsalam/naicsmatch/issues

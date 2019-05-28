@@ -81,7 +81,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/jameelalsalam/naicsmatch">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -95,7 +100,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Lookup Titles and Descriptions of NAICS Codes</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/jameelalsalam/naicsmatch/blob/master/R/lookup-title-descr.R'><code>R/lookup-title-descr.R</code></a></small>
     <div class="hidden name"><code>naics_title.Rd</code></div>
     </div>
 
@@ -120,12 +125,11 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>naics_title(c("332710", "332722", "332723")
-naics_title(c("332710", "332722", "332723")
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:2:1: unexpected symbol</span>
-#&gt; <span class='error'>1: naics_title(c("332710", "332722", "332723")</span>
-#&gt; <span class='error'>2: naics_title</span>
-#&gt; <span class='error'>   ^</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>naics_title</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"332710"</span>, <span class='st'>"332722"</span>, <span class='st'>"332723"</span>))</div><div class='output co'>#&gt; [1] "Machine Shops"                                    
+#&gt; [2] "Bolt, Nut, Screw, Rivet, and Washer Manufacturing"
+#&gt; [3] NA                                                 </div><div class='input'><span class='fu'>naics_descr</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"332710"</span>, <span class='st'>"332722"</span>, <span class='st'>"332723"</span>))</div><div class='output co'>#&gt; [1] "This industry comprises establishments known as machine shops primarily engaged in machining metal and plastic parts and parts of other composite materials on a job or order basis.  Generally machine shop jobs are low volume using machine tools, such as lathes (including computer numerically controlled); automatic screw machines; and machines for boring, grinding, milling, and additive manufacturing.\r\n\r\nCross-References. Establishments primarily engaged in--"
+#&gt; [2] "This U.S. industry comprises establishments primarily engaged in manufacturing metal bolts, nuts, screws, rivets, washers, and other industrial fasteners using machines, such as headers, threaders, and nut forming machines.\r\n\r\nCross-References. Establishments primarily engaged in--"                                                                                                                                                                                    
+#&gt; [3] NA                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -140,7 +144,7 @@ naics_title(c("332710", "332722", "332723")
 
       <footer>
       <div class="copyright">
-  <p>Developed by First Last.</p>
+  <p>Developed by Jameel Alsalam.</p>
 </div>
 
 <div class="pkgdown">
