@@ -1,13 +1,19 @@
 Package: naicsmatch
-Title: What the Package Does (One Line, Title Case)
+Title: Crosswalks and Handling of NAICS Sector Codes
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Jameel",
+           family = "Alsalam",
            role = c("aut", "cre"),
-           email = "first.last@example.com")
-Description: What the package does (one paragraph).
-License: What license it uses
+           email = "alsalam.jameel@epa.gov")
+Description: This package provides functions and data objects to 
+    assist with validation and conversion of NAICS sector codes. 
+    The North American Industrial Classification System (NAICS) is used
+    by U.S. government agencies to classify business activities. At five-
+    year intervals the sector classifications are updated and concordances
+    provided. This package provides convenience functions to these government-
+    provided data.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
