@@ -5,7 +5,7 @@
 #' @aliases naics_descr
 #' @export
 #' @examples
-#' naics_title(c("332710", "332722", "332723")
+#' naics_title(c("332710", "332722", "332723"))
 naics_title <- function(naics) {
 
   tibble::tibble(naics = naics) %>%
@@ -17,7 +17,7 @@ naics_title <- function(naics) {
 #' @rdname naics_title
 #' @export
 #' @examples
-#' naics_title(c("332710", "332722", "332723")
+#' naics_title(c("332710", "332722", "332723"))
 naics_descr <- function(naics) {
 
   tibble::tibble(naics = naics) %>%

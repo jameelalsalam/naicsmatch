@@ -16,6 +16,6 @@ naics_descr(naics)
 Convenience function. Focus on most recent NAICS code classifications. Lookup for prior may be added in teh
 }
 \examples{
-naics_title(c("332710", "332722", "332723")
-naics_title(c("332710", "332722", "332723")
+naics_title(c("332710", "332722", "332723"))
+naics_title(c("332710", "332722", "332723"))
 }
