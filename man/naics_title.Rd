@@ -17,5 +17,5 @@ Convenience function. Focus on most recent NAICS code classifications. Lookup fo
 }
 \examples{
 naics_title(c("332710", "332722", "332723"))
-naics_title(c("332710", "332722", "332723"))
+naics_descr(c("332710", "332722", "332723"))
 }
