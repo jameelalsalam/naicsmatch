@@ -44,13 +44,13 @@ This package provides concordances between different vintages of NAICS codes, an
 library(tidyverse)
 library(naicsmatch)
 
-sum(ex_asm$vos)
+sum(ex_asm09$vos09)
 
-ex_asm
+ex_asm09
 ## basic example code
 ```
 
-A sample of data from the 2009 Annual Survey of Manufacturers is included as `ex_asm`. This data was collected and published using the 2007 NAICS classification codes.
+A sample of data from the 2009 Annual Survey of Manufacturers is included as `ex_asm09`. This data was collected and published using the 2007 NAICS classification codes.
 
 The included data set `naics_2007_2012` is a concordance between the 2007 and 2012 classifications:
 
@@ -64,16 +64,15 @@ naics_2007_2012
 
 
 ```{r}
-asm_2012 <- ex_asm %>% left_join(naics_2007_2012, 
-                     by = c("NAICS.id" = "naics_2007"))
+asm09_2012 <- ex_asm09 %>% left_join(naics_2007_2012, by = "naics_2007")
 
-sum(asm_2012$vos)
+sum(asm09_2012$vos09)
 
-asm_2012
+asm09_2012
 ```
 
 
-# Weighting
+# Weighting by 1 / N
 
 ```{r}
 naics_2007_2012_wgt <- naics_2007_2012 %>%
@@ -83,29 +82,93 @@ naics_2007_2012_wgt <- naics_2007_2012 %>%
 filter(naics_2007_2012_wgt, wgt != 1)
 ```
 
+```{r}
+asm09_2012_v2 <- asm09_2012 %>%
+  left_join(naics_2007_2012_wgt, 
+            by = c("naics_2007")) %>%
+  mutate(vos09 = vos09 * wgt)
+
+sum(asm09_2012_v2$vos09)
+
+asm09_2012_v2
+```
 
 ```{r}
-asm_2012_v2 <- asm_2012 %>%
-  left_join(naics_2007_2012_wgt, 
-            by = c("NAICS.id" = "naics_2007")) %>%
-  mutate(vos = vos * wgt)
-
-sum(asm_2012_v2$vos)
-
-asm_2012_v2
+asm09_2012_v2 %>%
+  naics_sankey() +
+  labs(
+    title = "Allocating Split Categories by 1 / N"
+  )
 ```
+
 
 # Aggregation
 
 ```{r}
 
-asm_2012_v3 <- asm_2012_v2 %>%
+asm09_2012_v3 <- asm09_2012_v2 %>%
   group_by(naics_2012) %>%
-  summarize(vos = sum(vos, na.rm = TRUE))
+  summarize(vos09 = sum(vos09, na.rm = TRUE))
 
-sum(asm_2012_v3$vos)
+sum(asm09_2012_v3$vos09)
 
-asm_2012_v3
+asm09_2012_v3
 ```
 
+# Weighting by Data
+
+A common application is to calculate weights from one dataset and apply them to another dataset, when putting them both into common NAICS classifications.
+
+```{r}
+#ex_asm09
+#ex_asm15
+
+naics_2007_2012_datawgt <- naics_2007_2012 %>%
+  left_join(ex_asm15, by = "naics_2012") %>%
+  
+  # TODO: weighting only works for positive values?
+  filter(!is.na(vos15), vos15 > 0) %>%
+  
+  group_by(naics_2007, naics_2012) %>%
+  summarize(vos15 = sum(vos15, na.rm = TRUE)) %>%
+  group_by(naics_2007) %>%
+  
+  mutate(wgt = vos15 / sum(vos15, na.rm = TRUE))
+
+naics_2007_2012_datawgt
+```
+
+```{r}
+asm09_2012_v4 <- asm09_2012 %>%
+  left_join(naics_2007_2012_datawgt, 
+            by = c("naics_2007", "naics_2012")) %>%
+  mutate(vos09 = vos09 * wgt)
+
+sum(asm09_2012_v4$vos09)
+
+asm09_2012_v4
+```
+
+```{r}
+asm09_2012_v4 %>%
+  mutate(x = "naics_2012") %>%
+  ggplot(aes(x = x, y = vos15, fill = naics_2012)) +
+  geom_col()
+
+asm09_2012_v4 %>%
+  naics_sankey() +
+  labs(
+    title = "Allocating Split Categories by Second Dataset"
+  )
+```
+
+
+
+## Application and Check
+
+```{r}
+
+sum(asm09_2012_v4$vos09)
+
+```
 
