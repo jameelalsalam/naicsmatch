@@ -20,6 +20,7 @@ RoxygenNote: 6.1.1
 Imports: 
     tibble,
     dplyr,
-    magrittr
+    magrittr,
+    ggforce
 URL: https://github.com/jameelalsalam/naicsmatch
 BugReports: https://github.com/jameelalsalam/naicsmatch/issues
