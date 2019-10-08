@@ -21,8 +21,9 @@ Imports:
     tibble,
     dplyr,
     magrittr,
-    ggforce
+    ggforce,
+    stringr
 URL: https://github.com/jameelalsalam/naicsmatch
 BugReports: https://github.com/jameelalsalam/naicsmatch/issues
 Suggests: 
-    testthat
+    testthat (>= 2.1.0)

@@ -20,12 +20,14 @@ naics_code_type <- function(naics_code,
   reg_5digitMNP <- "^[:digit:]{5}[MNP]$"
   reg_4digit <- "^[:digit:]{4}$"
   reg_3digit <- "^[:digit:]{3}$"
+  reg_2digit <- "^[:digit:]{2}$"
 
   type <- case_when(
     str_detect(naics_code, reg_6digit) ~ "std",
     str_detect(naics_code, reg_5digit) ~ "std",
     str_detect(naics_code, reg_4digit) ~ "std",
     str_detect(naics_code, reg_3digit) ~ "std",
+    str_detect(naics_code, reg_2digit) ~ "std",
 
     str_detect(naics_code, reg_5digitMNP) ~ "rollup",
     str_detect(naics_code, reg_rollup_2dash) ~ "rollup",
@@ -43,6 +45,7 @@ naics_code_type <- function(naics_code,
 #'
 #' Only one of `naics_version` and `naics_listing` should be supplied. If both are supplied, `naics_listing` is used.
 #' @export
+#' @import stringr
 #' @examples
 #' select(ex_asm09, naics_2007, naics_label_2007) %>% mutate( level = naics_code_level(naics_2007)) %>% View()
 naics_code_level <- function(naics_code,
@@ -55,12 +58,14 @@ naics_code_level <- function(naics_code,
   reg_5digitMNP <- "^[:digit:]{5}[MNP]$"
   reg_4digit <- "^[:digit:]{4}$"
   reg_3digit <- "^[:digit:]{3}$"
+  reg_2digit <- "^[:digit:]{2}$"
 
   level <- case_when(
     str_detect(naics_code, reg_6digit) ~ "6-digit",
     str_detect(naics_code, reg_5digit) ~ "5-digit",
     str_detect(naics_code, reg_4digit) ~ "4-digit",
     str_detect(naics_code, reg_3digit) ~ "3-digit",
+    str_detect(naics_code, reg_2digit) ~ "2-digit",
 
     str_detect(naics_code, reg_5digitMNP) ~ "6-digit",
     str_detect(naics_code, reg_rollup_2dash) ~ "2-digit",
