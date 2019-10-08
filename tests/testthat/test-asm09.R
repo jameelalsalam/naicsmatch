@@ -1,5 +1,4 @@
 
-library(naicsmatch)
 
 asm09 <- mutate(asm09,
        type  = naics_code_type(naics_2007),

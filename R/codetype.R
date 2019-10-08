@@ -14,20 +14,13 @@ naics_code_type <- function(naics_code,
                             naics_version = c("2002", "2007", "2012", "2017"),
                             naics_listing = naicsmatch::naics_2017) {
 
+  reg_2to6digit <- "^[:digit:]{2,6}$"
+
   reg_rollup_2dash <- "^[:digit:]{2}-[:digit:]{2}$"
-  reg_6digit <- "^[:digit:]{6}$"
-  reg_5digit <- "^[:digit:]{5}$"
   reg_5digitMNP <- "^[:digit:]{5}[MNP]$"
-  reg_4digit <- "^[:digit:]{4}$"
-  reg_3digit <- "^[:digit:]{3}$"
-  reg_2digit <- "^[:digit:]{2}$"
 
   type <- case_when(
-    str_detect(naics_code, reg_6digit) ~ "std",
-    str_detect(naics_code, reg_5digit) ~ "std",
-    str_detect(naics_code, reg_4digit) ~ "std",
-    str_detect(naics_code, reg_3digit) ~ "std",
-    str_detect(naics_code, reg_2digit) ~ "std",
+    str_detect(naics_code, reg_2to6digit) ~ "std",
 
     str_detect(naics_code, reg_5digitMNP) ~ "rollup",
     str_detect(naics_code, reg_rollup_2dash) ~ "rollup",

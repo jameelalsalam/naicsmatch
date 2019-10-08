@@ -1,4 +1,3 @@
-library(naicsmatch)
 
 test_that("naics code types work as expected", {
 
