@@ -24,3 +24,5 @@ Imports:
     ggforce
 URL: https://github.com/jameelalsalam/naicsmatch
 BugReports: https://github.com/jameelalsalam/naicsmatch/issues
+Suggests: 
+    testthat
