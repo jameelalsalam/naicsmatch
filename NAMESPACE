@@ -2,6 +2,8 @@
 
 export(assert_naics)
 export(is_naics)
+export(naics_code_level)
+export(naics_code_type)
 export(naics_descr)
 export(naics_sankey)
 export(naics_title)
