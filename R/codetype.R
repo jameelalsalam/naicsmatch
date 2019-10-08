@@ -16,14 +16,17 @@ naics_code_type <- function(naics_code,
 
   reg_2to6digit <- "^[:digit:]{2,6}$"
 
-  reg_rollup_2dash <- "^[:digit:]{2}-[:digit:]{2}$"
-  reg_5digitMNP <- "^[:digit:]{5}[MNP]$"
+  reg_rollup_2dash <- "^[:digit:]{2}-[:digit:]{2}$" #ASM, IO
+  reg_5digitMNP <- "^[:digit:]{5}[MNP]$" #ASM
+  reg_6digitdash <- "^[:digit:]{6}-[:digit:]$" #MECS
 
   type <- case_when(
     str_detect(naics_code, reg_2to6digit) ~ "std",
 
     str_detect(naics_code, reg_5digitMNP) ~ "rollup",
     str_detect(naics_code, reg_rollup_2dash) ~ "rollup",
+    str_detect(naics_code, reg_6digitdash) ~ "rollup",
+
     TRUE ~ NA_character_
   )
 
@@ -52,6 +55,7 @@ naics_code_level <- function(naics_code,
   reg_4digit <- "^[:digit:]{4}$"
   reg_3digit <- "^[:digit:]{3}$"
   reg_2digit <- "^[:digit:]{2}$"
+  reg_6digitdash <- "^[:digit:]{6}-[:digit:]$" #MECS
 
   level <- case_when(
     str_detect(naics_code, reg_6digit) ~ "6-digit",
@@ -62,6 +66,8 @@ naics_code_level <- function(naics_code,
 
     str_detect(naics_code, reg_5digitMNP) ~ "6-digit",
     str_detect(naics_code, reg_rollup_2dash) ~ "2-digit",
+    str_detect(naics_code, reg_6digitdash) ~ "6-digit",
+
     TRUE ~ NA_character_
   )
 
