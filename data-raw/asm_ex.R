@@ -43,15 +43,14 @@ naics_cat_regex <- glue("(^{naics_cats})") %>% glue_collapse(sep = "|")
 
 # from ASM 2009
 
-ex_asm09 <- read_csv(
+asm09 <- read_csv(
   "data-raw/ASM_2009_31GS101.csv") %>%
   select(5,6,8,33) # includes corrected 2008 data and 2009 data
   #select(4,5, 6, 7, 24, 26, 27, 29, 30, 31)
 
-ex_asm09 <- ex_asm09[-1, ] # first row (after names) are descriptions
+asm09 <- asm09[-1, ] # first row (after names) are descriptions
 
-ex_asm09 <- ex_asm09 %>%
-  filter(str_detect(NAICS.id, naics_cat_regex)) %>%
+asm09 <- asm09 %>%
   mutate(vos09 = as.numeric(RCPTOT)) %>%
   rename(naics_2007 = NAICS.id,
          naics_label_2007 = `NAICS.display-label`) %>%
@@ -60,19 +59,22 @@ ex_asm09 <- ex_asm09 %>%
   filter(YEAR.id == 2009) %>%
   rename(year = YEAR.id)
 
+ex_asm09 <- asm09 %>%
+  filter(str_detect(naics_2007, naics_cat_regex))
+
+usethis::use_data(asm09, overwrite = TRUE)
 usethis::use_data(ex_asm09, overwrite = TRUE)
 
-# from ASM 2016
+# from ASM 2015
 
-ex_asm15 <- read_csv(
+asm15 <- read_csv(
   "data-raw/ASM_2015_31GS101.csv") %>%
   select(5,6,8,47)
 # NAICS ID, NAICS title, year, and total value of shipments ($1000s)
 
-ex_asm15 <- ex_asm15[-1, ] # first row (after names) are descriptions
+asm15 <- asm15[-1, ] # first row (after names) are descriptions
 
-ex_asm15 <- ex_asm15 %>%
-  filter(str_detect(NAICS.id, naics_cat_regex)) %>%
+asm15 <- asm15 %>%
   mutate(vos15 = as.numeric(RCPTOT)) %>%
   rename(naics_2012 = NAICS.id,
          naics_label_2012 = `NAICS.display-label`) %>%
@@ -81,5 +83,9 @@ ex_asm15 <- ex_asm15 %>%
   filter(YEAR.id == 2015) %>%
   rename(year = YEAR.id)
 
+ex_asm15 <- asm15 %>%
+  filter(str_detect(naics_2012, naics_cat_regex))
+
+usethis::use_data(asm15, overwrite = TRUE)
 usethis::use_data(ex_asm15, overwrite = TRUE)
 
