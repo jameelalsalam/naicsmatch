@@ -20,3 +20,35 @@ test_that("rollup set calculation works as expected", {
     starch_oils_milling$naics_set[[4]], c("311222", "311223"))
 
 })
+
+test_that("rollup handles 'M' situation", {
+
+  # synthetic 'M' value
+  expect_equal(
+    rollup_set_6digit(
+      c("11111M"), listing = c("111111", "111112", "111113")),
+    list(c("111111", "111112", "111113"))
+  )
+})
+
+test_that("rollup handles 'N' situation", {
+
+  # synthetic 'N' value
+  expect_equal(
+    rollup_set_6digit(
+      c("111111", "11111N"), listing = c("111111", "111112", "111113")),
+    list(c("111111"), c("111112", "111113"))
+  )
+})
+
+# test_that("rollup handles 'N' & 'P' situation in ASM09 (currently fails)", {
+#
+#   # synthetic 'N' + 'P'
+#   expect_equal(
+#     rollup_set_6digit(
+#       c("111111", "11111N", "11111P"),
+#       listing = c("111111", "111112", "111113", "111114", "111115")),
+#     list(c("111111"), c("111112", "111113"), c("111114", "111115"))
+#   )
+#
+# })
