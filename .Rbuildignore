@@ -6,3 +6,5 @@
 ^docs$
 ^pkgdown$
 ^LICENSE\.md$
+^vignettes/Time-series-translations-from-NAICS-based-rollups\.Rmd$
+^outputs$

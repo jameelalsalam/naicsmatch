@@ -1,0 +1,73 @@
+---
+title: "Time series translations from NAICS-based rollups"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(tidyverse)
+library(naicsmatch)
+library(knitr)
+library(kableExtra)
+```
+
+```{r}
+glimpse(ex_asm09)
+```
+
+
+```{r}
+ex_asm_ts <- ex_asm09 %>%
+  filter(naics_code_level(naics_2007) == "6-digit") %>%
+  mutate(naics_set = rollup_set_6digit(naics_2007, version = "2007"))
+
+select(ex_asm_ts, naics_2007, naics_set) %>%
+  filter(naics_2007 != naics_set) %>%
+  #unnest(naics_set) %>%
+  knitr::kable() %>%
+  kable_styling(bootstrap_options = c("condensed")) %>%
+  collapse_rows()
+```
+
+
+```{r}
+
+ex_asm_ts2 <- ex_asm_ts %>%
+  unnest(naics_set) %>%
+  rename(naics_2007_set = naics_set)
+
+ex_asm_ts3 <- ex_asm_ts2 %>%
+  left_join(naics_2007_2012, by = c("naics_2007_set" = "naics_2007")) %>%
+  rename(naics_2012_set = naics_2012)
+
+ex_asm_ts3
+
+```
+
+```{r}
+ex_asm_ts4 <- ex_asm_ts3 %>%
+  left_join(naics_2012_2017, by = c("naics_2012_set" = "naics_2012")) %>%
+  rename(naics_2017_set = naics_2017) %>%
+  nest(naics_set = one_of(c("naics_2007_set", "naics_2012_set", "naics_2017_set"))) %>%
+  mutate(naics_2007_set = map(
+    naics_set, ~unique(.x$naics_2007_set)
+  )) %>%
+  mutate(naics_2012_set = map(
+    naics_set, ~unique(.x$naics_2012_set)
+  )) %>%
+  mutate(naics_2017 = map(
+    naics_set, ~unique(.x$naics_2017_set))
+  )
+
+filter(ex_asm_ts4, naics_code_type(naics_2007, naics_version = "2007") == "rollup") %>%
+  select(naics_2007, naics_label_2007, naics_2007_set, naics_2012_set, naics_2017) %>% 
+  knitr::kable() %>%
+  kable_styling(bootstrap_options = c("condensed")) %>%
+  collapse_rows()
+```
+

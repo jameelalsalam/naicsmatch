@@ -27,4 +27,5 @@ Imports:
 URL: https://github.com/jameelalsalam/naicsmatch
 BugReports: https://github.com/jameelalsalam/naicsmatch/issues
 Suggests: 
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    rmarkdown

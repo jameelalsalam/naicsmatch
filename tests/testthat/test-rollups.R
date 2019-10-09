@@ -14,6 +14,20 @@ starch_oils_milling <- filter(asm09, str_detect(naics_2007, "^31122")) %>%
   select(-year, -vos09) %>%
   arrange(naics_2007)
 
+asm09_sets <- mutate(asm09) %>%
+  mutate(
+    level = naics_code_level(naics_2007),
+    type = naics_code_type(naics_2007),
+    naics_set = rollup_set_6digit(
+      naics_2007,
+      listing = naicsmatch::naics_2007_listing)) %>%
+  select(-year, -vos09) %>%
+  arrange(naics_2007)
+
+# asm09_sets %>%
+#   mutate(naics_set = map_chr(naics_set,
+#                              ~glue::glue_collapse(.x, sep = ", "))) %>% readr::write_csv("outputs/asm09_sets.csv")
+
 test_that("rollup set calculation works as expected", {
 
   expect_equal(
