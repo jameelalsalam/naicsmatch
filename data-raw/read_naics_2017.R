@@ -3,23 +3,42 @@
 library(tidyverse)
 library(readxl)
 
-naics_2017 <- read_excel(
-  "data-raw/census/2017_NAICS_Descriptions.xlsx"
-) %>%
-  rename(naics = Code,
-         title = Title,
-         descr = Description) %>%
-  mutate(trilateral = stringr::str_detect(title, "T$")) %>%
-  mutate(title = str_remove(title, "T$"))
+naics_2017_listing <- read_excel(
+  "data-raw/census/2-6 digit_2017_Codes.xlsx",
+  col_names = c("naics", "title"),
+  col_types = c("skip", "text", "text", rep("skip", 3)),
+  skip = 2
+)
 
-usethis::use_data(naics_2017, overwrite = TRUE)
+usethis::use_data(naics_2017_listing, overwrite = TRUE)
 
+naics_2012_listing <- read_excel(
+  "data-raw/census/2-digit_2012_Codes.xls",
+  col_names = c("naics", "title"),
+  col_types = c("skip", "text", "text"),
+  skip = 2
+)
 
-naics_2007 <- read_excel(
+usethis::use_data(naics_2012_listing, overwrite = TRUE)
+
+naics_2007_listing <- read_excel(
   "data-raw/census/naics07.xls",
-  skip = 2,
-  col_names = c("seq_no", "naics", "descr"),
-  col_types = c(rep("text", 3))) %>%
-  select(naics, descr)
+  col_names = c("naics", "title"),
+  col_types = c("skip", "text", "text"),
+  skip = 2
+)
 
-usethis::use_data(naics_2007, overwrite = TRUE)
+usethis::use_data(naics_2007_listing, overwrite = TRUE)
+
+naics_2002_listing <- read_fwf(
+  file = "data-raw/census/naics_2_6_02.txt",
+  col_positions = fwf_widths(c(6, NA), c("naics", "title")),
+  col_types = cols(
+    naics = col_character(),
+    title = col_character()),
+  skip = 7
+)
+
+if (!naics_2002_listing$naics[[1]] == "11") stop("check skip parameter for naics_2002_listing")
+
+usethis::use_data(naics_2002_listing, overwrite = TRUE)
