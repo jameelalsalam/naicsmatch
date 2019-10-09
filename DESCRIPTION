@@ -22,7 +22,8 @@ Imports:
     dplyr,
     magrittr,
     ggforce,
-    stringr
+    stringr,
+    purrr
 URL: https://github.com/jameelalsalam/naicsmatch
 BugReports: https://github.com/jameelalsalam/naicsmatch/issues
 Suggests: 
