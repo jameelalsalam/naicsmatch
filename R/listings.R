@@ -15,7 +15,7 @@
 naics_listing <- function(version = NA_character_, listing = NULL) {
 
   # version should be NA or length 1 character
-  stopifnot(length(version == 1))
+  stopifnot(length(version) == 1)
   stopifnot(is.na(version) || is.character(version))
 
   # either version or listing should be supplied

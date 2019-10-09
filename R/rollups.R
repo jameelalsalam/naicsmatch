@@ -3,10 +3,10 @@
 #' Determine categories included in NAICS-based rollups
 #'
 #' @param naics_code character vector of possibly valid codes
-#' @param naics_version length-1 character indicating version
-#' @param naics_listing datrframe with naics code information, defaults to 2017 version
+#' @param version length-1 character indicating version
+#' @param listing dataframe or character vector with naics code information
 #'
-#' Only one of `naics_version` and `naics_listing` should be supplied. If both are supplied, `naics_listing` is used.
+#' Only one of `naics_version` and `naics_listing` should be supplied.
 #'
 #' This version specifically deals with 6-digit rollups, such as "12345M"
 #' @return list of character vectors representing the set for each rollup. For standard codes, same is returned, (for invalid codes, NA is returned??).
@@ -14,8 +14,8 @@
 #' @export
 rollup_set_6digit <- function(
   naics_code,
-  naics_version = c("2002", "2007", "2012", "2017"),
-  naics_listing = naicsmatch::naics_2017) {
+  version = NA_character_,
+  listing = NULL) {
 
   data <- tibble(naics = naics_code) %>%
     mutate(
@@ -32,7 +32,9 @@ rollup_set_6digit <- function(
     mutate(naics_set_data = list(unique(naics))) %>%
     ungroup()
 
-  grps <- naics_listing %>%
+  naics_listing_df <- naics_listing(version, listing)
+
+  grps <- naics_listing_df %>%
     mutate(level = naics_code_level(naics),
            type  = naics_code_type(naics),
            containing_5digit = if_else(

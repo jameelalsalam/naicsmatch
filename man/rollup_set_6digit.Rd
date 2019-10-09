@@ -4,17 +4,16 @@
 \alias{rollup_set_6digit}
 \title{Determine categories included in NAICS-based rollups}
 \usage{
-rollup_set_6digit(naics_code, naics_version = c("2002", "2007", "2012",
-  "2017"), naics_listing = naicsmatch::naics_2017)
+rollup_set_6digit(naics_code, version = NA_character_, listing = NULL)
 }
 \arguments{
 \item{naics_code}{character vector of possibly valid codes}
 
-\item{naics_version}{length-1 character indicating version}
+\item{version}{length-1 character indicating version}
 
-\item{naics_listing}{datrframe with naics code information, defaults to 2017 version
+\item{listing}{dataframe or character vector with naics code information
 
-Only one of `naics_version` and `naics_listing` should be supplied. If both are supplied, `naics_listing` is used.
+Only one of `naics_version` and `naics_listing` should be supplied.
 
 This version specifically deals with 6-digit rollups, such as "12345M"}
 }

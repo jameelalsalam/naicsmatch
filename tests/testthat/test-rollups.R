@@ -10,7 +10,7 @@ starch_oils_milling <- filter(asm09, str_detect(naics_2007, "^31122")) %>%
     type = naics_code_type(naics_2007),
     naics_set = rollup_set_6digit(
       naics_2007,
-      naics_listing = naicsmatch::naics_2007)) %>%
+      listing = naicsmatch::naics_2007_listing)) %>%
   select(-year, -vos09) %>%
   arrange(naics_2007)
 
