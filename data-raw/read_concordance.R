@@ -48,3 +48,15 @@ naics_2017_2012 <- read_excel(
 # file has 7 extra blank columns
 
 usethis::use_data(naics_2017_2012, overwrite = TRUE)
+
+naics_2002_2007 <- read_excel(
+  "data-raw/census/2002_to_2007_NAICS.xls",
+  skip = 3,
+  col_names = c("naics_2002", "naics_2002_desc",
+                "naics_2007", "naics_2007_desc")
+  ,
+  col_types = c(rep("text", 4))) %>%
+  select(naics_2002, naics_2007)
+
+usethis::use_data(naics_2002_2007, overwrite = TRUE)
+
