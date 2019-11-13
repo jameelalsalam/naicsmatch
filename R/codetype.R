@@ -9,7 +9,7 @@
 #' Only one of `naics_version` and `naics_listing` should be supplied. If both are supplied, `naics_listing` is used.
 #' @export
 #' @examples
-#' select(ex_asm09, naics_2007, naics_label_2007) %>% mutate( type = naics_code_type(naics_2007)) %>% View()
+#' dplyr::select(ex_asm09, naics_2007, naics_label_2007) %>% dplyr::mutate( type = naics_code_type(naics_2007))
 naics_code_type <- function(naics_code,
                             naics_version = c("2002", "2007", "2012", "2017"),
                             naics_listing = naicsmatch::naics_2017) {
@@ -43,7 +43,7 @@ naics_code_type <- function(naics_code,
 #' @export
 #' @import stringr
 #' @examples
-#' select(ex_asm09, naics_2007, naics_label_2007) %>% mutate( level = naics_code_level(naics_2007)) %>% View()
+#' dplyr::select(ex_asm09, naics_2007, naics_label_2007) %>% dplyr::mutate( level = naics_code_level(naics_2007))
 naics_code_level <- function(naics_code,
                             naics_version = c("2002", "2007", "2012", "2017"),
                             naics_listing = naicsmatch::naics_2017) {

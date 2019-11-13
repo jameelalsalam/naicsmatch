@@ -20,5 +20,5 @@ Only one of `naics_version` and `naics_listing` should be supplied. If both are 
 Determine NAICS code type between standard codes and NAICS-based rollup categories
 }
 \examples{
-select(ex_asm09, naics_2007, naics_label_2007) \%>\% mutate( type = naics_code_type(naics_2007)) \%>\% View()
+dplyr::select(ex_asm09, naics_2007, naics_label_2007) \%>\% dplyr::mutate( type = naics_code_type(naics_2007))
 }

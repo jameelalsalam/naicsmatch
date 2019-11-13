@@ -20,5 +20,5 @@ Only one of `naics_version` and `naics_listing` should be supplied. If both are 
 Determine NAICS code aggregation level (2, 3, 4, 5, or 6-digit)
 }
 \examples{
-select(ex_asm09, naics_2007, naics_label_2007) \%>\% mutate( level = naics_code_level(naics_2007)) \%>\% View()
+dplyr::select(ex_asm09, naics_2007, naics_label_2007) \%>\% dplyr::mutate( level = naics_code_level(naics_2007))
 }

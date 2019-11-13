@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Determine NAICS code type between standard codes and NAICS-based rollup categories — naics_code_type • naicsmatch</title>
+<title>Determine categories included in NAICS-based rollups — rollup_set_6digit • naicsmatch</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Determine NAICS code type between standard codes and NAICS-based rollup categories — naics_code_type" />
-<meta property="og:description" content="Determine NAICS code type between standard codes and NAICS-based rollup categories" />
+<meta property="og:title" content="Determine categories included in NAICS-based rollups — rollup_set_6digit" />
+<meta property="og:description" content="Determine categories included in NAICS-based rollups" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,17 +117,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Determine NAICS code type between standard codes and NAICS-based rollup categories</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jameelalsalam/naicsmatch/blob/master/R/codetype.R'><code>R/codetype.R</code></a></small>
-    <div class="hidden name"><code>naics_code_type.Rd</code></div>
+    <h1>Determine categories included in NAICS-based rollups</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jameelalsalam/naicsmatch/blob/master/R/rollups.R'><code>R/rollups.R</code></a></small>
+    <div class="hidden name"><code>rollup_set_6digit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Determine NAICS code type between standard codes and NAICS-based rollup categories</p>
+    <p>Determine categories included in NAICS-based rollups</p>
     </div>
 
-    <pre class="usage"><span class='fu'>naics_code_type</span>(<span class='no'>naics_code</span>, <span class='kw'>naics_version</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2002"</span>, <span class='st'>"2007"</span>, <span class='st'>"2012"</span>,
-  <span class='st'>"2017"</span>), <span class='kw'>naics_listing</span> <span class='kw'>=</span> <span class='kw pkg'>naicsmatch</span><span class='kw ns'>::</span><span class='no'>naics_2017</span>)</pre>
+    <pre class="usage"><span class='fu'>rollup_set_6digit</span>(<span class='no'>naics_code</span>, <span class='kw'>version</span> <span class='kw'>=</span> <span class='fl'>NA_character_</span>, <span class='kw'>listing</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,38 +136,27 @@
       <td><p>character vector of possibly valid codes</p></td>
     </tr>
     <tr>
-      <th>naics_version</th>
+      <th>version</th>
       <td><p>length-1 character indicating version</p></td>
     </tr>
     <tr>
-      <th>naics_listing</th>
-      <td><p>datrframe with naics code information, defaults to 2017 version</p>
-<p>Only one of `naics_version` and `naics_listing` should be supplied. If both are supplied, `naics_listing` is used.</p></td>
+      <th>listing</th>
+      <td><p>dataframe or character vector with naics code information</p>
+<p>Only one of `naics_version` and `naics_listing` should be supplied.</p>
+<p>This version specifically deals with 6-digit rollups, such as "12345M"</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>ex_asm09</span>, <span class='no'>naics_2007</span>, <span class='no'>naics_label_2007</span>) <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>( <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>naics_code_type</span>(<span class='no'>naics_2007</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 25 x 3</span><span>
-#&gt;    naics_2007 naics_label_2007                         type  
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'> 1</span><span> 3118       Bakeries and tortilla manufacturing      std   
-#&gt; </span><span style='color: #555555;'> 2</span><span> 31181      Bread and bakery product manufacturing   std   
-#&gt; </span><span style='color: #555555;'> 3</span><span> 31181M     Bread and bakery product manufacturing   rollup
-#&gt; </span><span style='color: #555555;'> 4</span><span> 31182      Cookie, cracker, and pasta manufacturing std   
-#&gt; </span><span style='color: #555555;'> 5</span><span> 31182M     Cookie, cracker, and pasta manufacturing rollup
-#&gt; </span><span style='color: #555555;'> 6</span><span> 31183      Tortilla manufacturing                   std   
-#&gt; </span><span style='color: #555555;'> 7</span><span> 311830     Tortilla manufacturing                   std   
-#&gt; </span><span style='color: #555555;'> 8</span><span> 33211      Forging and stamping                     std   
-#&gt; </span><span style='color: #555555;'> 9</span><span> 332114     Custom roll forming                      std   
-#&gt; </span><span style='color: #555555;'>10</span><span> 332117     Powder metallurgy parts manufacturing    std   
-#&gt; </span><span style='color: #555555;'># ... with 15 more rows</span><span></div></span></pre>
+    <p>list of character vectors representing the set for each rollup. For standard codes, same is returned, (for invalid codes, NA is returned??).</p>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
+      <li><a href="#value">Value</a></li>
     </ul>
 
   </div>

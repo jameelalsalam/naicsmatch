@@ -1,5 +1,6 @@
-pandoc: '2.6'
-pkgdown: 1.3.0
+pandoc: 2.7.2
+pkgdown: 1.4.1
 pkgdown_sha: ~
-articles: []
+articles:
+  Time-series-translations-from-NAICS-based-rollups: Time-series-translations-from-NAICS-based-rollups.html
 
