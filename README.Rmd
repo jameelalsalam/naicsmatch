@@ -27,6 +27,7 @@ References:
 
 * [NAICS Concordances](https://www.census.gov/eos/www/naics/concordances/concordances.html)
 
+* [2017 NAICS Manual](https://www.census.gov/eos/www/naics/2017NAICS/2017_NAICS_Manual.pdf)
 
 ## Installation
 

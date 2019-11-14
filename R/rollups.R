@@ -82,11 +82,11 @@ rollup_to_set_6digit <- function(
 set_to_rollup_6digit <- function(
   naics_set,
   naics_version = c("2002", "2007", "2012", "2017"),
-  naics_listing = naics_2007_listing
+  naics_listing = naics_2017_listing
 
 ) {
 
-  # Need to examine the naics sets in the context of their containing 5-digit groups. E.g., if a set contains everything within the 5-digit group, it becomes *M.
+  # Need to examine the naics sets in the context of their containing 5-digit groups. E.g., if a set contains everything within the 5-digit group, it becomes *M. If not, then *N. If multiple groupings within a 5-digit, then *N, *P.
 
 
 
