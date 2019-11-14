@@ -73,3 +73,13 @@ naics_code_level <- function(naics_code,
 
   level
 }
+
+#' Return containing naics category
+#'
+#' @param naics_code Currently works through substring, only for standard-ish codes
+#' @return character vector up to the appropriate level
+#' @export
+naics_containing <- function(naics_code, level = "5-digit") {
+  digits <- str_extract(level, "^[:digit:](?=-digit$)")
+  res <- str_sub(naics_code, 1, digits)
+}

@@ -12,11 +12,13 @@
 #' @return list of character vectors representing the set for each rollup. For standard codes, same is returned, (for invalid codes, NA is returned??).
 #'
 #' @export
-rollup_set_6digit <- function(
+rollup_to_set_6digit <- function(
   naics_code,
   version = NA_character_,
-  listing = NULL) {
+  listing = NULL
+  ) {
 
+  # need to look at naics_code list within the context of containing 5-digit group
   data <- tibble(naics = naics_code) %>%
     mutate(
     level = naics_code_level(.data$naics),
@@ -60,10 +62,33 @@ rollup_set_6digit <- function(
     left_join(
       select(data_2, naics, naics_set), by = "naics"
     ) %>%
-    mutate(., naics_set =
-             map2(.data$naics_set, .data$naics,
-                  ~if(is.null(.x)) .y else .x))
+    mutate(., naics_set = map2(
+      .data$naics_set, .data$naics,
+      function(.x, .y) {if(is.null(.x)) .y else .x}
+      ))
 
   pull(res, naics_set)
+}
+
+#' From a list of sets of naics codes, generate rolled up values
+#'
+#' Reverses the operation of `rollup_to_set_6digit`
+#'
+#' @param naics_set list of character vectors
+#' @param naics_version char
+#' @param naics_listing tibble
+#' @return naics_code
+#' @export
+set_to_rollup_6digit <- function(
+  naics_set,
+  naics_version = c("2002", "2007", "2012", "2017"),
+  naics_listing = naics_2007_listing
+
+) {
+
+  # Need to examine the naics sets in the context of their containing 5-digit groups. E.g., if a set contains everything within the 5-digit group, it becomes *M.
+
+
+
 }
 
