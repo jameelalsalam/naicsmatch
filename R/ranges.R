@@ -73,7 +73,12 @@ ranges_to_set_6digit <- function(
     # want to end up with list of unique vectors...
     summarize(naics_set = list(unique(naics6)))
 
-  pull(data_res, naics_set)
+  res <- left_join(
+    tibble(naics_ranges = naics_ranges),
+    data_res, by = "naics_ranges"
+  )
+
+  pull(res, naics_set)
 }
 
 #' Translates ranges into lists of (start, end)

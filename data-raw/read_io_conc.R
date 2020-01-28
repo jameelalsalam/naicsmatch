@@ -2,6 +2,7 @@
 
 library("tidyverse")
 library("readxl")
+library("naicsmatch")
 
 # READ 2002 BEA IO Concordance ----
 # (manually cleaned)
@@ -9,39 +10,11 @@ library("readxl")
 io_conc_raw_2002 <- readxl::read_excel("data-raw/bea_io_codes/Appendix A_rev 4-24-08.xlsx", sheet = "manually-cleaned") %>%
   select(io_code = IO_code, naics_2002_ranges)
 
-io_conc_to_naics_2002_future <- io_conc_raw_2002 %>%
-  mutate(naics_2002_set = ranges_to_set_6digit(
+io_conc_to_naics_2002 <- io_conc_raw_2002 %>%
+  mutate(naics_2002_set = naicsmatch::ranges_to_set_6digit(
     naics_2002_ranges,
     listing = naicsmatch::naics_2002_listing
   ))
-
-io_conc_to_naics_2002 <- io_conc_raw_2002 %>%
-
-  # make lists from comma-separated things
-  mutate(naics_1 = str_split(naics_code, pattern = ",")) %>%
-  unnest() %>%
-  mutate(naics_1 = str_trim(naics_1)) %>%
-
-  # drop things with *'s
-  # filter(!str_detect("\\*")) %>%
-
-  # make ranges from dashed ranges
-  mutate(naics_range = make_ranges(naics_1)) %>%
-  unnest() %>%
-  mutate(naics_2 = if_else(is.na(naics_range), naics_1, naics_range)) %>%
-
-  # make all possible from 4- or 5-digit naics codes
-  mutate(naics_3 = map(naics_2, function(naics){
-    if (str_detect(naics, "^\\d{4}$")) {
-      paste0(naics, str_sub(as.character(100:199), 2, 3))
-    } else if (str_detect(naics, "^\\d{5}$")) {
-      paste0(naics, str_sub(as.character(10:19), 2, 2))
-    } else naics
-  })) %>%
-  unnest() %>%
-  select(io_code, naics_orig = naics_code, naics_clean = naics_3)
-
-
 
 
 
