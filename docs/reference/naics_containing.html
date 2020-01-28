@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • naicsmatch</title>
+<title>Return containing naics category — naics_containing • naicsmatch</title>
 
 
 <!-- jquery -->
@@ -35,7 +35,9 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Return containing naics category — naics_containing" />
+<meta property="og:description" content="Return containing naics category" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -54,7 +56,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -113,90 +115,40 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Return containing naics category</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jameelalsalam/naicsmatch/blob/master/R/codetype.R'><code>R/codetype.R</code></a></small>
+    <div class="hidden name"><code>naics_containing.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Return containing naics category</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>naics_containing</span>(<span class='no'>naics_code</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='st'>"5-digit"</span>)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="is_naics.html">is_naics()</a></code> <code><a href="is_naics.html">assert_naics()</a></code> </p>
-        </td>
-        <td><p>Check that a character vector contains valid NAICS codes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="naics_code_level.html">naics_code_level()</a></code> </p>
-        </td>
-        <td><p>Determine NAICS code aggregation level (2, 3, 4, 5, or 6-digit)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="naics_code_type.html">naics_code_type()</a></code> </p>
-        </td>
-        <td><p>Determine NAICS code type between standard codes and NAICS-based rollup categories</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="naics_containing.html">naics_containing()</a></code> </p>
-        </td>
-        <td><p>Return containing naics category</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="naics_listing.html">naics_listing()</a></code> </p>
-        </td>
-        <td><p>Retrieve or specify a NAICS listing version</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="naics_sankey.html">naics_sankey()</a></code> </p>
-        </td>
-        <td><p>Make a Sankey Diagram of a NAICS Crosswalk</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="naics_title.html">naics_title()</a></code> <code><a href="naics_title.html">naics_descr()</a></code> </p>
-        </td>
-        <td><p>Lookup Titles and Descriptions of NAICS Codes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rollup_to_set_6digit.html">rollup_to_set_6digit()</a></code> </p>
-        </td>
-        <td><p>Determine categories included in NAICS-based rollups</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="set_to_rollup_6digit.html">set_to_rollup_6digit()</a></code> </p>
-        </td>
-        <td><p>From a list of sets of naics codes, generate rolled up values</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>naics_code</th>
+      <td><p>Currently works through substring, only for standard-ish codes</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>character vector up to the appropriate level</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
     </ul>
+
   </div>
 </div>
 
