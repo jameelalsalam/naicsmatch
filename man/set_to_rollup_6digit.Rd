@@ -5,7 +5,7 @@
 \title{From a list of sets of naics codes, generate rolled up values}
 \usage{
 set_to_rollup_6digit(naics_set, naics_version = c("2002", "2007", "2012",
-  "2017"), naics_listing = naics_2007_listing)
+  "2017"), naics_listing = naics_2017_listing)
 }
 \arguments{
 \item{naics_set}{list of character vectors}

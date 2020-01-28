@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lookup Titles and Descriptions of NAICS Codes — naics_title • naicsmatch</title>
+<title>Determine categories included in NAICS-based ranges — ranges_to_set_6digit • naicsmatch</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Lookup Titles and Descriptions of NAICS Codes — naics_title" />
-<meta property="og:description" content="Convenience function. Focus on most recent NAICS code classifications. Lookup for prior may be added in teh" />
+<meta property="og:title" content="Determine categories included in NAICS-based ranges — ranges_to_set_6digit" />
+<meta property="og:description" content="E.g., &quot;123456-8, 111111&quot; -&amp;gt; &quot;123456&quot;, &quot;123457&quot;, &quot;123458&quot;, &quot;111111&quot;" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,42 +117,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Lookup Titles and Descriptions of NAICS Codes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jameelalsalam/naicsmatch/blob/master/R/lookup-title-descr.R'><code>R/lookup-title-descr.R</code></a></small>
-    <div class="hidden name"><code>naics_title.Rd</code></div>
+    <h1>Determine categories included in NAICS-based ranges</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jameelalsalam/naicsmatch/blob/master/R/ranges.R'><code>R/ranges.R</code></a></small>
+    <div class="hidden name"><code>ranges_to_set_6digit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convenience function. Focus on most recent NAICS code classifications. Lookup for prior may be added in teh</p>
+    <p>E.g., "123456-8, 111111" -&gt; "123456", "123457", "123458", "111111"</p>
     </div>
 
-    <pre class="usage"><span class='fu'>naics_title</span>(<span class='no'>naics</span>, <span class='kw'>naics_listing</span> <span class='kw'>=</span> <span class='kw pkg'>naicsmatch</span><span class='kw ns'>::</span><span class='no'>naics_2017</span>)
-
-<span class='fu'>naics_descr</span>(<span class='no'>naics</span>)</pre>
+    <pre class="usage"><span class='fu'>ranges_to_set_6digit</span>(<span class='no'>naics_ranges</span>, <span class='kw'>version</span> <span class='kw'>=</span> <span class='fl'>NA_character_</span>,
+  <span class='kw'>listing</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>naics</th>
-      <td><p>a character vector of NAICS codes to look up</p></td>
+      <th>version</th>
+      <td><p>length-1 character indicating version</p></td>
     </tr>
     <tr>
-      <th>naics_listing</th>
-      <td><p>a lookup table of naics codes and titles, defaults to most recent</p></td>
+      <th>listing</th>
+      <td><p>dataframe or character vector with naics code information</p>
+<p>Only one of `version` and `listing` should be supplied.</p>
+<p>This version specifically deals with 6-digit rollups, such as "12345M"</p></td>
+    </tr>
+    <tr>
+      <th>naics_code</th>
+      <td><p>character vector of possibly valid codes</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>list of character vectors representing the set for each range. For standard codes, same is returned, (for invalid codes, NA is returned??).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>naics_title</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"332710"</span>, <span class='st'>"332722"</span>, <span class='st'>"332723"</span>))</div><div class='output co'>#&gt; [1] "Machine Shops"                                    
-#&gt; [2] "Bolt, Nut, Screw, Rivet, and Washer Manufacturing"
-#&gt; [3] NA                                                 </div><div class='input'><span class='fu'>naics_descr</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"332710"</span>, <span class='st'>"332722"</span>, <span class='st'>"332723"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in tbl_vars_dispatch(x): object 'naics_2017' not found</span></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>naics_ranges</span> <span class='kw'>&lt;-</span> <span class='no'>io_conc_raw_2002</span>$<span class='no'>naics_2002_ranges</span>[<span class='fl'>1</span>:<span class='fl'>5</span>]</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'io_conc_raw_2002' not found</span></div><div class='input'><span class='no'>listing</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>naicsmatch</span><span class='kw ns'>::</span><span class='no'>naics_2002_listing</span>
+<span class='fu'>ranges_to_set_6digit</span>(
+<span class='no'>io_conc_raw_2002</span>$<span class='no'>naics_2002_ranges</span>[<span class='fl'>1</span>:<span class='fl'>5</span>],
+<span class='kw'>listing</span> <span class='kw'>=</span> <span class='kw pkg'>naicsmatch</span><span class='kw ns'>::</span><span class='no'>naics_2002_listing</span>
+)</div><div class='output co'>#&gt; <span class='error'>Error in eval_tidy(xs[[i]], unique_output): object 'io_conc_raw_2002' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

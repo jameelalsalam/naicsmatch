@@ -5,12 +5,14 @@
 \alias{naics_descr}
 \title{Lookup Titles and Descriptions of NAICS Codes}
 \usage{
-naics_title(naics)
+naics_title(naics, naics_listing = naicsmatch::naics_2017)
 
 naics_descr(naics)
 }
 \arguments{
 \item{naics}{a character vector of NAICS codes to look up}
+
+\item{naics_listing}{a lookup table of naics codes and titles, defaults to most recent}
 }
 \description{
 Convenience function. Focus on most recent NAICS code classifications. Lookup for prior may be added in teh
