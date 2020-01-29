@@ -1,5 +1,4 @@
 # listings.R
-# TODO: a place to document the naics listings
 
 #' Retrieve or specify a NAICS listing version
 #'
@@ -14,13 +13,20 @@
 #' @export
 naics_listing <- function(version = NA_character_, listing = NULL) {
 
-  # version should be NA or length 1 character
-  stopifnot(length(version) == 1)
-  stopifnot(is.na(version) || is.character(version))
+  version <- as.character(version)
+  allowed_versions <- c("2017", "2012", "2007", "2002")
+
+  # input checks
 
   # either version or listing should be supplied
   if(is.na(version) & is.null(listing)) stop("No listing supplied or version.")
   if(!is.na(version) & !is.null(listing)) stop("Provide only one of `version` or `listing`")
+
+  # version should be NA or length 1 character
+  if (! length(version) == 1 | !is.character(version) | (
+    !is.na(version) & !version %in% allowed_versions)) {
+    stop("When requesting a naics_listing by version, the version parameter must be coercible to a length 1 character vector. Current valid naics listing versions are ", allowed_versions, ". You supplied ", version)
+  }
 
   res <- if(!is.na(version)) {
     # get listing by `version`
@@ -46,3 +52,23 @@ naics_listing <- function(version = NA_character_, listing = NULL) {
     }
   }
 }
+
+
+#' NAICS Code List Datasets
+#'
+#' This package contains NAICS code list datasets for the NAICS code definitions for 2017, 2012, 2007, and 2002. Codes are included for all levels of aggregation. Code listings are formatted as dataframes with a single `naics` column. They are downloaded from the U.S. Census.
+#'
+#' @name naics_listing_data
+NULL
+
+#' @rdname naics_listing_data
+"naics_2017_listing"
+
+#' @rdname naics_listing_data
+"naics_2012_listing"
+
+#' @rdname naics_listing_data
+"naics_2007_listing"
+
+#' @rdname naics_listing_data
+"naics_2002_listing"

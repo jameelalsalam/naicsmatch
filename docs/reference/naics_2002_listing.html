@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Determine categories included in NAICS-based ranges — ranges_to_set_6digit • naicsmatch</title>
+<title>Listing of 2002 NAICS Codes — naics_2002_listing • naicsmatch</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Determine categories included in NAICS-based ranges — ranges_to_set_6digit" />
-<meta property="og:description" content="Determine categories included in NAICS-based ranges" />
+<meta property="og:title" content="Listing of 2002 NAICS Codes — naics_2002_listing" />
+<meta property="og:description" content="#' @rdname naics_listing_data" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,55 +117,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Determine categories included in NAICS-based ranges</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jameelalsalam/naicsmatch/blob/master/R/ranges.R'><code>R/ranges.R</code></a></small>
-    <div class="hidden name"><code>ranges_to_set_6digit.Rd</code></div>
+    <h1>Listing of 2002 NAICS Codes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jameelalsalam/naicsmatch/blob/master/R/listings.R'><code>R/listings.R</code></a></small>
+    <div class="hidden name"><code>naics_2002_listing.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Determine categories included in NAICS-based ranges</p>
+    <p>#' @rdname naics_listing_data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ranges_to_set_6digit</span>(<span class='no'>naics_ranges</span>, <span class='kw'>version</span> <span class='kw'>=</span> <span class='fl'>NA_character_</span>,
-  <span class='kw'>listing</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='no'>naics_2002_listing</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>version</th>
-      <td><p>length-1 character indicating version</p></td>
-    </tr>
-    <tr>
-      <th>listing</th>
-      <td><p>dataframe or character vector with naics code information</p>
-<p>Only one of `version` and `listing` should be supplied.</p>
-<p>This version specifically deals with ranges (possibly comma delimited) such as are found in BEA IO table data. Trims any *'s.
-E.g., "123456-8, 111111" -&gt; "123456", "123457", "123458", "111111"</p></td>
-    </tr>
-    <tr>
-      <th>naics_code</th>
-      <td><p>character vector of possibly valid codes</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>list of character vectors representing the set for each range. For standard codes, same is returned, (for invalid codes, NA is returned??).</p>
+    <p>An object of class <code>spec_tbl_df</code> (inherits from <code>tbl_df</code>, <code>tbl</code>, <code>data.frame</code>) with 2343 rows and 2 columns.</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>naics_ranges</span> <span class='kw'>&lt;-</span> <span class='no'>io_conc_raw_2002</span>$<span class='no'>naics_2002_ranges</span>[<span class='fl'>1</span>:<span class='fl'>5</span>]</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'io_conc_raw_2002' not found</span></div><div class='input'><span class='no'>listing</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>naicsmatch</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/naicsmatch/man/naics_listing_data.html'>naics_2002_listing</a></span>
-<span class='fu'>ranges_to_set_6digit</span>(
-<span class='no'>io_conc_raw_2002</span>$<span class='no'>naics_2002_ranges</span>[<span class='fl'>1</span>:<span class='fl'>5</span>],
-<span class='kw'>listing</span> <span class='kw'>=</span> <span class='kw pkg'>naicsmatch</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/naicsmatch/man/naics_listing_data.html'>naics_2002_listing</a></span>
-)</div><div class='output co'>#&gt; <span class='error'>Error in eval_tidy(xs[[i]], unique_output): object 'io_conc_raw_2002' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
+      <li><a href="#format">Format</a></li>
     </ul>
 
   </div>

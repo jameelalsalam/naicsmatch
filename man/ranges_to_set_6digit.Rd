@@ -14,7 +14,8 @@ ranges_to_set_6digit(naics_ranges, version = NA_character_,
 
 Only one of `version` and `listing` should be supplied.
 
-This version specifically deals with 6-digit rollups, such as "12345M"}
+This version specifically deals with ranges (possibly comma delimited) such as are found in BEA IO table data. Trims any *'s.
+E.g., "123456-8, 111111" -> "123456", "123457", "123458", "111111"}
 
 \item{naics_code}{character vector of possibly valid codes}
 }
@@ -22,7 +23,7 @@ This version specifically deals with 6-digit rollups, such as "12345M"}
 list of character vectors representing the set for each range. For standard codes, same is returned, (for invalid codes, NA is returned??).
 }
 \description{
-E.g., "123456-8, 111111" -> "123456", "123457", "123458", "111111"
+Determine categories included in NAICS-based ranges
 }
 \examples{
 naics_ranges <- io_conc_raw_2002$naics_2002_ranges[1:5]

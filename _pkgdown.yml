@@ -20,8 +20,7 @@ reference:
 - title: Code Listings & Concordances
   contents:
     - naics_listing
-    - ends_with("_listing")
-    - matches("naics_\\d{4}_\\d{4}")
+    - naics_listing_data
 - title: Rollups and Conversions
   contents:
     - rollup_to_set_6digit
