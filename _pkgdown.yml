@@ -1,1 +1,33 @@
 destination: docs
+
+template:
+  params:
+    bootswatch: sandstone
+
+development:
+  mode: unreleased
+
+reference:
+- title: NAICS codes
+  contents:
+    - is_naics
+    - assert_naics
+    - naics_title
+    - naics_descr
+    - naics_code_level
+    - naics_code_type
+    - naics_containing
+- title: Code Listings & Concordances
+  contents:
+    - naics_listing
+    - ends_with("_listing")
+    - matches("naics_\\d{4}_\\d{4}")
+- title: Rollups and Conversions
+  contents:
+    - rollup_to_set_6digit
+    - set_to_rollup_6digit
+    - ranges_to_set_6digit
+    - code_range_lims
+- title: Viz
+  contents:
+    - naics_sankey

@@ -2,15 +2,14 @@
 
 #' Determine categories included in NAICS-based ranges
 #'
-#' E.g., "123456-8, 111111" -> "123456", "123457", "123458", "111111"
-#'
 #' @param naics_code character vector of possibly valid codes
 #' @param version length-1 character indicating version
 #' @param listing dataframe or character vector with naics code information
 #'
 #' Only one of `version` and `listing` should be supplied.
 #'
-#' This version specifically deals with 6-digit rollups, such as "12345M"
+#' This version specifically deals with ranges (possibly comma delimited) such as are found in BEA IO table data. Trims any *'s.
+#' E.g., "123456-8, 111111" -> "123456", "123457", "123458", "111111"
 #' @return list of character vectors representing the set for each range. For standard codes, same is returned, (for invalid codes, NA is returned??).
 #'
 #' @import stringr
