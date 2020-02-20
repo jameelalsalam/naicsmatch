@@ -16,8 +16,10 @@ io_conc_to_naics_2002 <- io_conc_raw_2002 %>%
     listing = naicsmatch::naics_2002_listing
   ))
 
-
-
+conc_naics_2002_to_io <- io_conc_to_naics_2002 %>%
+  select(naics_2002_set, io_code) %>%
+  tidyr::unchop(cols = naics_2002_set, keep_empty = TRUE) %>%
+  rename(naics_20)
 
 
 # READ 2007/2012 BEA IO Concordance ---------

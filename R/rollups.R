@@ -16,14 +16,14 @@ rollup_to_set_6digit <- function(
   naics_code,
   version = NA_character_,
   listing = NULL
-  ) {
+) {
 
   # need to look at naics_code list within the context of containing 5-digit group
   data <- tibble(naics = naics_code) %>%
     mutate(
-    level = naics_code_level(.data$naics),
-    type = naics_code_type(.data$naics)
-  ) %>%
+      level = naics_code_level(.data$naics),
+      type = naics_code_type(.data$naics)
+    ) %>%
     mutate(
       containing_5digit = if_else(
         level == "6-digit",
@@ -34,7 +34,7 @@ rollup_to_set_6digit <- function(
     mutate(naics_set_data = list(unique(naics))) %>%
     ungroup()
 
-  naics_listing_df <- naics_listing(version, listing)
+  naics_listing_df <- naics_listing(version = version, listing = listing)
 
   grps <- naics_listing_df %>%
     mutate(level = naics_code_level(naics),
@@ -52,20 +52,21 @@ rollup_to_set_6digit <- function(
     mutate(naics_set = map2(
       naics_set_listing, naics_set_data, ~setdiff(.x, .y))) %>%
     filter(type == "rollup") %>%
-    select(naics, level, type, naics_set)
+    select(naics, level, type, naics_set) %>%
+    distinct(naics, .keep_all = TRUE) # TODO: is there a risk that the rows differ?
 
   res <- tibble(
-      naics = naics_code,
-      level = naics_code_level(naics),
-      type = naics_code_type(naics)
-    ) %>%
+    naics = naics_code,
+    level = naics_code_level(naics),
+    type = naics_code_type(naics)
+  ) %>%
     left_join(
       select(data_2, naics, naics_set), by = "naics"
     ) %>%
     mutate(., naics_set = map2(
       .data$naics_set, .data$naics,
       function(.x, .y) {if(is.null(.x)) .y else .x}
-      ))
+    ))
 
   pull(res, naics_set)
 }

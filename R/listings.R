@@ -23,7 +23,7 @@ naics_listing <- function(version = NA_character_, listing = NULL) {
   if(!is.na(version) & !is.null(listing)) stop("Provide only one of `version` or `listing`")
 
   # version should be NA or length 1 character
-  if (! length(version) == 1 | !is.character(version) | (
+  if(! length(version) == 1 | !is.character(version) | (
     !is.na(version) & !version %in% allowed_versions)) {
     stop("When requesting a naics_listing by version, the version parameter must be coercible to a length 1 character vector. Current valid naics listing versions are ", allowed_versions, ". You supplied ", version)
   }
@@ -40,7 +40,7 @@ naics_listing <- function(version = NA_character_, listing = NULL) {
   } else {
     # get listing by `listing`
 
-    if (is.data.frame(listing)) {
+    if(is.data.frame(listing)) {
       # listing is a df already
       listing
 
@@ -51,6 +51,8 @@ naics_listing <- function(version = NA_character_, listing = NULL) {
       tibble(naics = listing)
     }
   }
+
+  res
 }
 
 

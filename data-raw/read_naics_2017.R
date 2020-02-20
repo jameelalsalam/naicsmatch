@@ -39,6 +39,6 @@ naics_2002_listing <- read_fwf(
   skip = 7
 )
 
-if (!naics_2002_listing$naics[[1]] == "11") stop("check skip parameter for naics_2002_listing")
+if(!naics_2002_listing$naics[[1]] == "11") stop("check skip parameter for naics_2002_listing")
 
 usethis::use_data(naics_2002_listing, overwrite = TRUE)

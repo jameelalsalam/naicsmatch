@@ -10,7 +10,7 @@ NULL
 #' @param naics character vector of candidate codes
 #' @export
 is_naics <- function(naics) {
-  if (! is.character) stop ("Parameter `naics` must be a character vector.")
+  if(! is.character) stop ("Parameter `naics` must be a character vector.")
 
   is.element(naics, naics_2017$naics)
 }
@@ -18,6 +18,6 @@ is_naics <- function(naics) {
 #' @rdname is_naics
 #' @export
 assert_naics <- function(naics) {
-  if (! all(is_naics(naics))) stop("All values must be valid NAICS 2017 codes.")
+  if(! all(is_naics(naics))) stop("All values must be valid NAICS 2017 codes.")
   invisible(naics)
 }
