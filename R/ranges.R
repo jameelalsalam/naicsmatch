@@ -122,22 +122,22 @@ code_range_lims <- function(x, listing = NULL) {
 make_ranges <- function(x) {
 
   rng_text <- x %>%
-    str_extract("\\d-\\d")
+    stringr::str_extract("\\d-\\d")
 
   rng_pre <- x %>%
-    str_extract("(\\d{3,5})(?=\\d-\\d)")
+    stringr::str_extract("(\\d{3,5})(?=\\d-\\d)")
 
   rng_df <- tibble(
     x, rng_text, rng_pre
   ) %>%
     filter(!is.na(rng_text)) %>%
     mutate(rng_nums = str_extract_all(rng_text, "\\d")) %>%
-    mutate(rng_nums = map(rng_nums, ~c(.x[[1]]:.x[[2]]))) %>%
-    mutate(rng_list = map2(rng_pre, rng_nums, ~paste0(.x, .y)))
+    mutate(rng_nums = purrr::map(rng_nums, ~c(.x[[1]]:.x[[2]]))) %>%
+    mutate(rng_list = purrr::map2(rng_pre, rng_nums, ~paste0(.x, .y)))
 
   res <- tibble("input" = x) %>%
     left_join(rng_df, by = c("input" = "x")) %>%
-    mutate(rng_list = map(rng_list, ~.x %||% NA_character_)) %>%
+    mutate(rng_list = purrr::map(rng_list, ~.x %||% NA_character_)) %>%
     select(input, rng_list) %>%
     pull(rng_list)
 

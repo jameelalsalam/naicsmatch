@@ -7,23 +7,24 @@
 #' @param naics_listing datrframe with naics code information, defaults to 2017 version
 #'
 #' Only one of `naics_version` and `naics_listing` should be supplied. If both are supplied, `naics_listing` is used.
+#'
 #' @export
 #' @examples
 #' dplyr::select(ex_asm09, naics_2007, naics_label_2007) %>% dplyr::mutate( type = naics_code_type(naics_2007))
 naics_code_type <- function(naics_code,
-                            naics_version = c("2002", "2007", "2012", "2017"),
-                            naics_listing = naicsmatch::naics_2017) {
+                            naics_version = NA_character_,
+                            naics_listing = NULL) {
 
   reg_2to6digit <- "^[:digit:]{2,6}$"
 
   reg_rollup_2dash <- "^[:digit:]{2}-[:digit:]{2}$" #ASM, IO
-  reg_5digitMNP <- "^[:digit:]{5}[MNP]$" #ASM
+  reg_5digitMNPX <- "^[:digit:]{5}[MNPX]$" #ASM, ITC
   reg_6digitdash <- "^[:digit:]{6}-[:digit:]$" #MECS
 
   type <- case_when(
     str_detect(naics_code, reg_2to6digit) ~ "std",
 
-    str_detect(naics_code, reg_5digitMNP) ~ "rollup",
+    str_detect(naics_code, reg_5digitMNPX) ~ "rollup",
     str_detect(naics_code, reg_rollup_2dash) ~ "rollup",
     str_detect(naics_code, reg_6digitdash) ~ "rollup",
 
@@ -45,13 +46,13 @@ naics_code_type <- function(naics_code,
 #' @examples
 #' dplyr::select(ex_asm09, naics_2007, naics_label_2007) %>% dplyr::mutate( level = naics_code_level(naics_2007))
 naics_code_level <- function(naics_code,
-                            naics_version = c("2002", "2007", "2012", "2017"),
-                            naics_listing = naicsmatch::naics_2017) {
+                            naics_version = NA_character_,
+                            naics_listing = NULL) {
 
   reg_rollup_2dash <- "^[:digit:]{2}-[:digit:]{2}$"
   reg_6digit <- "^[:digit:]{6}$"
   reg_5digit <- "^[:digit:]{5}$"
-  reg_5digitMNP <- "^[:digit:]{5}[MNP]$"
+  reg_5digitMNPX <- "^[:digit:]{5}[MNPX]$"
   reg_4digit <- "^[:digit:]{4}$"
   reg_3digit <- "^[:digit:]{3}$"
   reg_2digit <- "^[:digit:]{2}$"
@@ -64,7 +65,7 @@ naics_code_level <- function(naics_code,
     str_detect(naics_code, reg_3digit) ~ "3-digit",
     str_detect(naics_code, reg_2digit) ~ "2-digit",
 
-    str_detect(naics_code, reg_5digitMNP) ~ "6-digit",
+    str_detect(naics_code, reg_5digitMNPX) ~ "6-digit",
     str_detect(naics_code, reg_rollup_2dash) ~ "2-digit",
     str_detect(naics_code, reg_6digitdash) ~ "6-digit",
 
@@ -74,7 +75,13 @@ naics_code_level <- function(naics_code,
   level
 }
 
+level_chr_as_number <- function(level_chr) {
+  str_extract(level_chr, "^[:digit:]{1}(?=-digit$)")
+}
+
 #' Return containing naics category
+#'
+#' The level being returned must be more aggregated than the starting level, else NA is returned.
 #'
 #' @param naics_code Currently works through substring, only for standard-ish codes
 #' @param level either numeric or character, e.g., "5-digit", "5", or 5
@@ -86,7 +93,7 @@ naics_code_level <- function(naics_code,
 #' @export
 naics_containing <- function(naics_code, level = "5-digit") {
 
-  stopifnot(length(level) == 1)
+  if(length(level) != 1) stop("Parameter `level` must be a length-1 character or numeric vector.")
 
   if(is.character(level) & str_detect(level, "^[:digit:]-digit$")) {
     digits <- str_extract(level, "^[:digit:](?=-digit$)")
@@ -96,6 +103,9 @@ naics_containing <- function(naics_code, level = "5-digit") {
     digits <- level
   }
 
-  res <- str_sub(naics_code, 1, digits)
+  res <- if_else(digits <= level_chr_as_number(naics_code_level(naics_code)),
+                 str_sub(naics_code, 1, digits),
+                 NA_character_)
+
   res
 }

@@ -25,7 +25,7 @@ asm09_sets <- mutate(asm09) %>%
   arrange(naics_2007)
 
 # asm09_sets %>%
-#   mutate(naics_set = map_chr(naics_set,
+#   mutate(naics_set = purrr::map_chr(naics_set,
 #                              ~glue::glue_collapse(.x, sep = ", "))) %>% readr::write_csv("outputs/asm09_sets.csv")
 
 test_that("rollup set calculation works as expected", {
@@ -66,3 +66,14 @@ test_that("rollup handles 'N' situation", {
 #   )
 #
 # })
+
+# hosiery and socks
+
+hs <- naics_2007_listing %>% filter(str_detect(naics, "^31511[19]"))
+# ITC uses rollups e.g. "31511X" to indicate equivalent 6-digit code to 31511
+
+test_that("rollup handles 'X' values from ITC.", {
+  expect_equal(
+    rollup_to_set_6digit("31511X", listing = naics_2007_listing), list(c("315111", "315119"))
+  )
+})

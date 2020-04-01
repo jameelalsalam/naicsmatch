@@ -49,7 +49,7 @@ rollup_to_set_6digit <- function(
     ungroup()
 
   data_2 <- left_join(data, grps, by = "containing_5digit") %>%
-    mutate(naics_set = map2(
+    mutate(naics_set = purrr::map2(
       naics_set_listing, naics_set_data, ~setdiff(.x, .y))) %>%
     filter(type == "rollup") %>%
     select(naics, level, type, naics_set) %>%
@@ -63,7 +63,7 @@ rollup_to_set_6digit <- function(
     left_join(
       select(data_2, naics, naics_set), by = "naics"
     ) %>%
-    mutate(., naics_set = map2(
+    mutate(., naics_set = purrr::map2(
       .data$naics_set, .data$naics,
       function(.x, .y) {if(is.null(.x)) .y else .x}
     ))
